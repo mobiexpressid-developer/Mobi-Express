@@ -1558,34 +1558,36 @@ window.addEventListener('load', function() {
 
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-            maxZoom: 10,
-            minZoom: 4,
-            subdomains: 'abcd'
-        }).addTo(map);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri',
+    maxZoom: 16
+}).addTo(map);
 
         setTimeout(function() {
             map.invalidateSize();
         }, 200);
 
         const basecamps = [
-            { name: 'Basecamp Jabodetabek', coords: [-6.2088, 106.8456], desc: 'Kantor Pusat Jl. Radio Dalam V No.71', isHQ: true },
-            { name: 'Basecamp Bandung', coords: [-6.9175, 107.6191], desc: 'Hub Logistik Jawa Barat' },
-            { name: 'Basecamp Semarang', coords: [-7.0051, 110.4381], desc: 'Hub Logistik Jawa Tengah' },
-            { name: 'Basecamp Surabaya', coords: [-7.2575, 112.7521], desc: 'Hub Logistik Jawa Timur' },
-            { name: 'Basecamp Bali', coords: [-8.4095, 115.1889], desc: 'Hub Logistik Denpasar' },
-            { name: 'Basecamp Balikpapan', coords: [-1.2379, 116.8529], desc: 'Hub Kalimantan Timur' },
-            { name: 'Basecamp Samarinda', coords: [-0.5021, 117.1537], desc: 'Hub Kalimantan Timur (Samarinda)' },
-            { name: 'Basecamp Banjarmasin', coords: [-3.3194, 114.5905], desc: 'Hub Kalimantan Selatan' },
-            { name: 'Basecamp Pontianak', coords: [-0.0263, 109.3425], desc: 'Hub Kalimantan Barat' },
-            { name: 'Basecamp Makassar', coords: [-5.1477, 119.4327], desc: 'Hub Sulawesi Selatan' },
-            { name: 'Basecamp Mamuju', coords: [-2.6806, 118.8878], desc: 'Hub Sulawesi Barat' },
-            { name: 'Basecamp Palu', coords: [-0.8917, 119.8707], desc: 'Hub Sulawesi Tengah' },
-            { name: 'Basecamp Gorontalo', coords: [0.5400, 123.0595], desc: 'Hub Gorontalo' },
-            { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' },
-            { name: 'Basecamp Kendari', coords: [-3.9972, 122.5126], desc: 'Hub Sulawesi Tenggara' }
-        ];
+    { name: 'Basecamp Jabodetabek', coords: [-6.2088, 106.8456], desc: 'Kantor Pusat Jl. Radio Dalam V No.71', isHQ: true },
+    { name: 'Basecamp Bandung', coords: [-6.9175, 107.6191], desc: 'Hub Logistik Jawa Barat' },
+    { name: 'Basecamp Semarang', coords: [-7.0051, 110.4381], desc: 'Hub Logistik Jawa Tengah' },
+    { name: 'Basecamp Surabaya', coords: [-7.2575, 112.7521], desc: 'Hub Logistik Jawa Timur' },
+    { name: 'Basecamp Bali', coords: [-8.4095, 115.1889], desc: 'Hub Logistik Denpasar' },
+    { name: 'Basecamp Balikpapan', coords: [-1.2379, 116.8529], desc: 'Hub Kalimantan Timur' },
+    { name: 'Basecamp Samarinda', coords: [-0.5021, 117.1537], desc: 'Hub Kalimantan Timur (Samarinda)' },
+    { name: 'Basecamp Banjarmasin', coords: [-3.3194, 114.5905], desc: 'Hub Kalimantan Selatan' },
+    { name: 'Basecamp Pontianak', coords: [-0.0263, 109.3425], desc: 'Hub Kalimantan Barat' },
+    { name: 'Basecamp Makassar', coords: [-5.1477, 119.4327], desc: 'Hub Sulawesi Selatan' },
+    { name: 'Basecamp Mamuju', coords: [-2.6806, 118.8878], desc: 'Hub Sulawesi Barat' },
+    { name: 'Basecamp Palu', coords: [-0.8917, 119.8707], desc: 'Hub Sulawesi Tengah' },
+    { name: 'Basecamp Gorontalo', coords: [0.5400, 123.0595], desc: 'Hub Gorontalo' },
+    { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' },
+    { name: 'Basecamp Kendari', coords: [-3.9972, 122.5126], desc: 'Hub Sulawesi Tenggara' },
+    { name: 'Basecamp Lampung', coords: [-5.4292, 105.2611], desc: 'Hub Logistik Lampung' },
+    { name: 'Basecamp Bengkulu', coords: [-3.8004, 102.2655], desc: 'Hub Logistik Bengkulu' },
+    { name: 'Basecamp Palembang', coords: [-2.9761, 104.7754], desc: 'Hub Logistik Sumatera Selatan' },
+    { name: 'Basecamp Padang', coords: [-0.9492, 100.3543], desc: 'Hub Logistik Sumatera Barat' }
+];
 
         basecamps.forEach(bc => {
             const iconHtml = bc.isHQ 
@@ -1610,7 +1612,14 @@ window.addEventListener('load', function() {
         });
 
         const overlandRoutes = [
-            [ 
+        [
+        [-6.2088, 106.8456], // Jabodetabek
+        [-5.4292, 105.2611], // Lampung
+        [-2.9761, 104.7754], // Palembang
+        [-3.8004, 102.2655], // Bengkulu
+        [-0.9492, 100.3543]  // Padang
+			],
+			[
                 [-6.2088, 106.8456], [-6.3930, 107.4410], [-6.9175, 107.6191],
                 [-6.7320, 108.5520], [-6.8690, 109.1380], [-7.0051, 110.4381],
                 [-7.4200, 111.4420], [-7.2575, 112.7521], [-7.7540, 113.2160],
